@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotify AB Loop</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🎵 Spotify AB Loop</h1>
+    </header>
+    
+    <main class="main">
+      <div class="status-section">
+        <div class="current-time">
+          <span class="label">現在の再生位置:</span>
+          <span id="current-time">--:--</span>
+        </div>
+        <div class="track-info">
+          <span class="label">トラック:</span>
+          <span id="track-name">検出中...</span>
+        </div>
+      </div>
+      
+      <div class="loop-section">
+        <div class="loop-toggle">
+          <label class="switch">
+            <input type="checkbox" id="loop-enabled">
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">ABループ</span>
+        </div>
+        
+        <div class="points-section">
+          <div class="point-setting">
+            <button id="set-point-a" class="point-btn">A点設定</button>
+            <span id="point-a-time" class="point-time">未設定</span>
+          </div>
+          <div class="point-setting">
+            <button id="set-point-b" class="point-btn">B点設定</button>
+            <span id="point-b-time" class="point-time">未設定</span>
+          </div>
+        </div>
+        
+        <div class="control-section">
+          <button id="clear-points" class="control-btn">ポイントクリア</button>
+          <button id="jump-to-a" class="control-btn">A点へジャンプ</button>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <div class="loop-info">
+          <span class="label">ループ範囲:</span>
+          <span id="loop-duration">--</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
