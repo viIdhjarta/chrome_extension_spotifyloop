@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Spotify AB Loop",
   "version": "1.0.0",
-  "description": "SpotifyのWebプレイヤーでABループ機能を提供するChrome拡張機能",
+  "description": "Add AB loop functionality to Spotify Web Player. Set A and B points to loop specific sections of songs perfectly.",
   
   "permissions": [
     "storage",

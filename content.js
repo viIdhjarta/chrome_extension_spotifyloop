@@ -126,21 +126,34 @@ class SpotifyABLoop {
   }
 
   getCurrentTime() {
-    const timeElement = this.getCurrentTimeElement();
-    if (!timeElement) return 0;
-    
-    const timeText = timeElement.textContent.trim();
-    return this.parseTimeString(timeText);
+    try {
+      const timeElement = this.getCurrentTimeElement();
+      if (!timeElement) return 0;
+      
+      const timeText = timeElement.textContent.trim();
+      const time = this.parseTimeString(timeText);
+      return isNaN(time) ? 0 : time;
+    } catch (error) {
+      console.error('getCurrentTime エラー:', error);
+      return 0;
+    }
   }
 
   parseTimeString(timeString) {
-    const parts = timeString.split(':');
-    if (parts.length === 2) {
-      const minutes = parseInt(parts[0], 10) || 0;
-      const seconds = parseInt(parts[1], 10) || 0;
-      return minutes * 60 + seconds;
+    try {
+      if (!timeString || typeof timeString !== 'string') return 0;
+      
+      const parts = timeString.split(':');
+      if (parts.length === 2) {
+        const minutes = parseInt(parts[0], 10) || 0;
+        const seconds = parseInt(parts[1], 10) || 0;
+        return minutes * 60 + seconds;
+      }
+      return 0;
+    } catch (error) {
+      console.error('parseTimeString エラー:', error);
+      return 0;
     }
-    return 0;
   }
 
   getCurrentTrackName() {
@@ -358,9 +371,9 @@ class SpotifyABLoop {
     
     this.monitoringInterval = setInterval(() => {
       this.checkLoopCondition();
-    }, 500); // 0.5秒間隔でチェック
+    }, 100); // 0.1秒間隔でチェック
     
-    console.log('✅ ループ監視を開始しました (0.5秒間隔)');
+    console.log('✅ ループ監視を開始しました (0.1秒間隔)');
   }
 
   stopMonitoring() {
@@ -372,7 +385,7 @@ class SpotifyABLoop {
   }
 
   checkLoopCondition() {
-    console.log(`⏱️ ループチェック実行中... (0.5秒間隔)`);
+    console.log(`⏱️ ループチェック実行中... (0.1秒間隔)`);
     
     // 基本的な条件チェック
     if (!this.loopEnabled) {
@@ -666,8 +679,8 @@ class SpotifyABLoop {
     button.className = 'spotify-ab-loop-toggle-btn';
     button.title = 'ABループ切り替え';
     
-    // ループアイコン（∞記号）を使用
-    button.innerHTML = '∞';
+    // ABアイコンを使用
+    button.innerHTML = 'AB';
     
     // 基本スタイル（Spotifyのボタンに合わせる）
     button.style.cssText = `
@@ -675,7 +688,7 @@ class SpotifyABLoop {
       border: none;
       color: ${this.loopEnabled ? '#1ed760' : '#b3b3b3'};
       cursor: pointer;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: bold;
       padding: 8px;
       margin: 0 4px;
