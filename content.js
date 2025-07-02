@@ -310,6 +310,15 @@ class SpotifyABLoop {
     this.loopEnabled = enabled;
     console.log(`🔄 ABループ: ${enabled ? '有効' : '無効'} (更新後: loopEnabled=${this.loopEnabled})`);
     
+    // ループ無効化時はA・B点も完全クリア
+    if (!enabled) {
+      this.pointA = null;
+      this.pointB = null;
+      console.log('🗑️ ポップアップでループ無効化、A・B点もクリア');
+      this.updateAllPointButtons();
+      this.updateLoopButtonState();
+    }
+    
     if (enabled) {
       console.log('✅ 監視開始を要求');
       this.startMonitoring();
@@ -782,6 +791,14 @@ class SpotifyABLoop {
   toggleLoopFromButton() {
     this.loopEnabled = !this.loopEnabled;
     console.log(`🔄 ループ切り替え: ${this.loopEnabled ? '有効' : '無効'}`);
+    
+    // ループ無効化時はA・B点も完全クリア
+    if (!this.loopEnabled) {
+      this.pointA = null;
+      this.pointB = null;
+      console.log('🗑️ ループ無効化でA・B点もクリア');
+      this.updateAllPointButtons();
+    }
     
     // ボタンの色を更新
     const loopBtn = document.querySelector('.spotify-ab-loop-toggle-btn');
